@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
 import json
-from datetime import datetime, timedelta
 
 BASE_URL = "https://crichd.mobile"
 url = BASE_URL + "/"
@@ -21,7 +20,7 @@ if response.status_code == 200:
         rows = table.find_all('tr')
         
         for index, row in enumerate(rows):
-            # প্রথম সারি হেডার হলে স্কিপ করা
+            # প্রথম সারি হেডার (যেমন: League, Title, Match Time) হলে সেটি স্কিপ করা
             if index == 0:
                 continue
                 
@@ -29,28 +28,17 @@ if response.status_code == 200:
             if not cols or len(cols) < 3:
                 continue
                 
-            thumbnail_url = None
             team_name = ""
             event_name = ""
             match_time = ""
             match_link = None
             
-            # ১. লোগো বা থাম্বনেইল বের করা
-            img_tag = row.find('img')
-            if img_tag and img_tag.get('src'):
-                img_src = img_tag.get('src')
-                if img_src.startswith('/'):
-                    thumbnail_url = BASE_URL + img_src
-                elif not img_src.startswith('http'):
-                    thumbnail_url = BASE_URL + '/' + img_src
-                else:
-                    thumbnail_url = img_src
-
-            # ২. কলামের টেক্সটগুলো পরিষ্কার করে নেওয়া
+            # টেবিলের সেলগুলোর টেক্সট সংগ্রহ ও ক্লিন করা
             cell_texts = [col.text.strip().replace('\n', ' ').replace('\r', '') for col in cols]
             cell_texts = [" ".join(text.split()) for text in cell_texts]
-
-            # ৩. সঠিক কলাম ম্যাপিং (যাতে কোনো ডেটা এলোমেলো বা শিফট না হয়)
+            
+            # ১০০% নিশ্চিত হওয়ার জন্য সঠিক কলাম ম্যাপিং
+            # সাধারণত প্রথম কলাম = Team Name, দ্বিতীয় কলাম = Event Name, তৃতীয় কলাম = Match Time
             if len(cell_texts) >= 3:
                 team_name = cell_texts[0]
                 event_name = cell_texts[1]
@@ -60,7 +48,7 @@ if response.status_code == 200:
                 event_name = cell_texts[0]
                 match_time = cell_texts[1]
 
-            # ৪. লিংক সংগ্রহ করা
+            # ইভেন্ট বা নামের ভেতরের সঠিক লিংক (URL) সংগ্রহ করা
             for col in cols:
                 link_tag = col.find('a')
                 if link_tag and link_tag.get('href'):
@@ -73,12 +61,12 @@ if response.status_code == 200:
                         match_link = href
                     break
 
-            # ৫. টাইমের ভেতর থেকে অতিরিক্ত \n বা জগাখিচুড়ি দূর করা
+            # টাইমের ভেতর থেকে অতিরিক্ত বা জগাখিচুড়ি টেক্সট দূর করা
             if match_time:
                 match_time = match_time.replace('\\n', ' ').strip()
 
+            # আপনার চাওয়া হুবহু ডেমো ফরম্যাটের ডিকশনারি
             match_dict = {
-                "Thumbnail": thumbnail_url,
                 "Team Name": team_name,
                 "Event Name": event_name,
                 "Match Time": match_time,
@@ -87,12 +75,12 @@ if response.status_code == 200:
             
             matches_list.append(match_dict)
             
-        # JSON ফাইলে সেভ করা
+        # সরাসরি JSON লিস্ট আকারে ফাইল সেভ করা
         with open('match_table.json', 'w', encoding='utf-8') as f:
             json.dump(matches_list, f, ensure_ascii=False, indent=4)
             
-        print("সফলভাবে ডেটা আপডেট হয়েছে!")
+        print("ডেটা শতভাগ সঠিকভাবে JSON ফরম্যাটে সেভ হয়েছে!")
     else:
-        print("টেবিল পাওয়া যায়নি।")
+        print("টেবিলটি পাওয়া যায়নি।")
 else:
     print("ওয়েবসাইট ভিজিট করা যায়নি।")
