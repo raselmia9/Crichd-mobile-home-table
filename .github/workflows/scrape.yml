@@ -2,8 +2,8 @@ name: Auto CricHD Scraper
 
 on:
   schedule:
-    - cron: '0 * * * *' # প্রতি ১ ঘণ্টা পর পর রান করবে
-  workflow_dispatch: # ম্যানুয়ালি রান করার অপশন
+    - cron: '0 * * * *' # প্রতি ১ ঘণ্টা পর পর অটোমেটিক রান করবে
+  workflow_dispatch: # গিটহাব থেকে ম্যানুয়ালি রান করার বাটন পাওয়ার জন্য
 
 jobs:
   scrape:
@@ -27,5 +27,5 @@ jobs:
       - name: Commit and push changes if table updates
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Auto-update match table data"
+          commit_message: "Auto-update match table json data"
           file_patterns: match_table.json
