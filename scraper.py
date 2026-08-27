@@ -20,47 +20,55 @@ if response.status_code == 200:
         rows = table.find_all('tr')
         
         for index, row in enumerate(rows):
-            # প্রথম সারিটি হেডার হওয়ায় সেটি স্কিপ করা হচ্ছে
+            # প্রথম সারি হেডার হলে স্কিপ করা
             if index == 0:
                 continue
                 
             cols = row.find_all(['td', 'th'])
-            if not cols or len(cols) < 4:
+            if not cols or len(cols) < 3:
                 continue
                 
-            # ১. Thumbnail (বাম পাশের লোগো বা আইকন) সংগ্রহ করা
             thumbnail_url = None
-            img_tag = cols[0].find('img')
-            if img_tag and img_tag.get('src'):
-                img_src = img_tag.get('src')
-                if img_src.startswith('/'):
-                    thumbnail_url = BASE_URL + img_src
-                elif not img_src.startswith('http'):
-                    thumbnail_url = BASE_URL + '/' + img_src
-                else:
-                    thumbnail_url = img_src
-            
-            # ২. Team Name (পূর্বের League)
-            team_name = cols[0].text.strip()
-            
-            # ৩. Event Name (পূর্বের Title এবং এর ভেতরকার লিংক) সংগ্রহ করা
+            team_name = ""
             event_name = ""
+            match_time = ""
             match_link = None
             
-            title_col = cols[1] if len(cols) > 1 else None
-            if title_col:
-                event_name = title_col.text.strip()
-                link_tag = title_col.find('a')
-                if link_tag and link_tag.get('href'):
-                    href = link_tag.get('href')
-                    if href.startswith('/'):
-                        match_link = BASE_URL + href
-                    elif not href.startswith('http'):
-                        match_link = BASE_URL + '/' + href
-                    else:
-                        match_link = href
-            
-            # যদি অন্য কোনো কলামেও লিংক থাকে সেটি চেক করা
+            # টেবিলের কলামগুলো থেকে সুনির্দিষ্টভাবে ডাটা বের করা
+            for i, col in enumerate(cols):
+                text = col.text.strip()
+                
+                # ১. প্রথম কলাম: লোগো (Thumbnail) এবং Team Name
+                if i == 0:
+                    team_name = text
+                    img_tag = col.find('img')
+                    if img_tag and img_tag.get('src'):
+                        img_src = img_tag.get('src')
+                        if img_src.startswith('/'):
+                            thumbnail_url = BASE_URL + img_src
+                        elif not img_src.startswith('http'):
+                            thumbnail_url = BASE_URL + '/' + img_src
+                        else:
+                            thumbnail_url = img_src
+                            
+                # ২. দ্বিতীয় কলাম: Event Name এবং Link
+                elif i == 1:
+                    event_name = text
+                    link_tag = col.find('a')
+                    if link_tag and link_tag.get('href'):
+                        href = link_tag.get('href')
+                        if href.startswith('/'):
+                            match_link = BASE_URL + href
+                        elif not href.startswith('http'):
+                            match_link = BASE_URL + '/' + href
+                        else:
+                            match_link = href
+                            
+                # ৩. তৃতীয় কলাম: Match Time
+                elif i == 2:
+                    match_time = text
+
+            # যদি অন্য কোনো কলামে লিংক থাকে এবং কলাম ২ এ না পাওয়া যায়
             if not match_link:
                 for col in cols:
                     link_tag = col.find('a')
@@ -74,10 +82,6 @@ if response.status_code == 200:
                             match_link = href
                         break
 
-            # ৪. Match Time সংগ্রহ করা
-            match_time = cols[2].text.strip() if len(cols) > 2 else ""
-            
-            # ডিকশনারি তৈরি
             match_dict = {
                 "Thumbnail": thumbnail_url,
                 "Team Name": team_name,
@@ -88,12 +92,12 @@ if response.status_code == 200:
             
             matches_list.append(match_dict)
             
-        # সরাসরি JSON লিস্ট আকারে ফাইল সেভ করা (Timestamp বা অতিরিক্ত কিছু থাকবে না)
+        # JSON ফাইলে সেভ করা
         with open('match_table.json', 'w', encoding='utf-8') as f:
             json.dump(matches_list, f, ensure_ascii=False, indent=4)
             
-        print("ডেটা সফলভাবে JSON ফরম্যাটে সেভ করা হয়েছে!")
+        print("সঠিক ফরম্যাটে ডেটা সেভ হয়েছে!")
     else:
-        print("টেবিলটি পাওয়া যায়নি।")
+        print("টেবিল পাওয়া যায়নি।")
 else:
-    print("ওয়েবসাইট ভিজিট করা সম্ভব হয়নি।")
+    print("ওয়েবসাইট ভিজিট করা যায়নি।")
