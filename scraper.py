@@ -16,52 +16,88 @@ if response.status_code == 200:
     matches_list = []
     
     if table:
-        rows = table.find_all('tr')[1:] # হেডার বাদ দিয়ে
+        rows = table.find_all('tr')
         
-        for row in rows:
+        # ১. ডায়নামিক হেডার ম্যাপিং (হেডার চেক করে কলামের সঠিক পজিশন চিনে নেওয়া)
+        headers_map = {}
+        header_row = rows[0]
+        for idx, th in enumerate(header_row.find_all(['th', 'td'])):
+            header_text = th.get_text(strip=True).lower()
+            if 'league' in header_text:
+                headers_map['league'] = idx
+            elif 'title' in header_text:
+                headers_map['title'] = idx
+            elif 'match time' in header_text or 'time' in header_text:
+                headers_map['time'] = idx
+
+        # ডেটা রো গুলো প্রসেস করা (হেডার বাদ দিয়ে)
+        for row in rows[1:]:
             cols = row.find_all(['td', 'th'])
             if len(cols) < 3:
                 continue
                 
-            # ১. Team Name (প্রথম কলাম)
-            team_name = cols[0].get_text(strip=True)
-            
-            # ২. Event Name (দ্বিতীয় কলাম - Title)
-            title_col = cols[1]
-            event_name = title_col.get_text(strip=True)
-            
-            # ৩. সঠিক ওয়াচ পেজ লিংক খুঁজে বের করার লজিক (যেখানে 'schedule' নেই)
+            team_name = ""
+            event_name = ""
+            match_time = ""
             match_link = BASE_URL
             
-            # টাইটেল বা পুরো সারির সমস্ত <a> ট্যাগ চেক করা
-            all_links = row.find_all('a')
-            for a_tag in all_links:
-                href = a_tag.get('href')
-                if href:
-                    href = href.strip()
-                    # শর্ত: লিংকের ভেতরে যদি 'schedule' লেখা থাকে, তবে সেটি ধরব না!
-                    if 'schedule' not in href.lower():
-                        if href.startswith('http'):
-                            match_link = href
-                        else:
-                            clean_href = href.lstrip('/')
-                            match_link = f"{BASE_URL}/{clean_href}"
-                        break # সঠিক লিংক পেয়ে গেলে লুপ ভেঙে বের হয়ে যাবো
+            # হেডার ম্যাপিং অনুযায়ী সুনির্দিষ্ট কলাম থেকে ডেটা তোলা
+            # League কলাম
+            if 'league' in headers_map and len(cols) > headers_map['league']:
+                team_name = cols[headers_map['league']].get_text(strip=True)
+            elif len(cols) > 0:
+                team_name = cols[0].get_text(strip=True)
 
-            # ৪. Match Time (তৃতীয় ও চতুর্থ কলাম আলাদা করে ফিক্স করা হয়েছে যাতে লেখা ঢুকে না যায়)
+            # Title কলাম (যেখান থেকে ইভেন্ট নেম এবং সঠিক ওয়াচ পেজ লিংক দুটোই নেওয়া হবে)
+            title_col = None
+            if 'title' in headers_map and len(cols) > headers_map['title']:
+                title_col = cols[headers_map['title']]
+            elif len(cols) > 1:
+                title_col = cols[1]
+
+            if title_col:
+                event_name = title_col.get_text(strip=True)
+                
+                # Title কলামের ভেতর থেকে এমন লিংক খোঁজা যেখানে 'schedule' নেই
+                all_links = title_col.find_all('a')
+                for a_tag in all_links:
+                    href = a_tag.get('href')
+                    if href:
+                        href = href.strip()
+                        if 'schedule' not in href.lower():
+                            if href.startswith('http'):
+                                match_link = href
+                            else:
+                                clean_href = href.lstrip('/')
+                                match_link = f"{BASE_URL}/{clean_href}"
+                            break
+
+            # Match Time কলাম (টাইমের লেখা যাতে জগাখিচুড়ি না পাকায়)
             time_parts = []
-            if len(cols) > 2:
-                t1 = cols[2].get_text(strip=True)
+            if 'time' in headers_map and len(cols) > headers_map['time']:
+                t1 = cols[headers_map['time']].get_text(strip=True)
                 if t1:
                     time_parts.append(t1)
-            
-            if len(cols) > 3:
-                t2 = cols[3].get_text(strip=True)
-                if t2 and "watch" not in t2.lower():
-                    time_parts.append(t2)
-            
-            # একটি স্পেস দিয়ে সুনির্দিষ্টভাবে আলাদা করা হলো যাতে একটার সাথে আরেকটা না মেশে
+                # যদি পরের কলামেও কাউন্টডাউন বা টাইম থাকে
+                if len(cols) > headers_map['time'] + 1:
+                    t2 = cols[headers_map['time'] + 1].get_text(strip=True)
+                    if t2 and "watch" not in t2.lower():
+                        time_parts.append(t2)
+            else:
+                if len(cols) > 2:
+                    t1 = cols[2].get_text(strip=True)
+                    if t1:
+                        time_parts.append(t1)
+                if len(cols) > 3:
+                    t2 = cols[3].get_text(strip=True)
+                    if t2 and "watch" not in t2.lower():
+                        time_parts.append(t2)
+
             match_time = " ".join(time_parts)
+
+            # ফলব্যাক চেক
+            if not team_name and event_name:
+                team_name = event_name
 
             matches_list.append({
                 "Team Name": team_name,
@@ -70,11 +106,11 @@ if response.status_code == 200:
                 "Link": match_link
             })
             
-        # ফাইল সেভ
+        # JSON ফাইলে সেভ করা
         with open('match_table.json', 'w', encoding='utf-8') as f:
             json.dump(matches_list, f, ensure_ascii=False, indent=4)
             
-        print("সিডিউল লিংক বাদ দিয়ে সঠিক ওয়াচ পেজের লিংক এবং টাইম নিখুঁতভাবে সেভ করা হয়েছে!")
+        print("সঠিক হেডার ম্যাপিং এবং টাইটেল লিংক সহ ডেটা সফলভাবে সেভ হয়েছে!")
     else:
         print("টেবিল পাওয়া যায়নি।")
 else:
