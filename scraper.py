@@ -1,72 +1,73 @@
-from playwright.sync_api import sync_playwright
+from bs4 import BeautifulSoup
+import requests
 import json
 
 BASE_URL = "https://crichd.mobile"
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+}
 
-def scrape_matches():
-    with sync_playwright() as p:
-        # হেডলেস ব্রাউজার চালু করা
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
-        
-        print("ওয়েবসাইট ভিজিট করা হচ্ছে...")
-        page.goto(BASE_URL, timeout=60000)
-        page.wait_for_selector('table', timeout=10000)
-        
-        matches_list = []
-        
-        # টেবিলের রো গুলোর সংখ্যা বের করা (প্রথম হেডার বাদে)
-        rows = page.locator('table tr').all()[1:]
+response = requests.get(BASE_URL + "/", headers=headers, timeout=10)
+
+if response.status_code == 200:
+    soup = BeautifulSoup(response.text, 'html.parser')
+    table = soup.find('table') 
+    
+    matches_list = []
+    
+    if table:
+        rows = table.find_all('tr')[1:] # হেডার বাদ দিয়ে
         
         for row in rows:
-            cols = row.locator('td, th').all()
+            cols = row.find_all(['td', 'th'])
             if len(cols) < 3:
                 continue
                 
-            team_name = cols[0].inner_text().strip()
-            event_name = cols[1].inner_text().strip()
-            match_time = cols[2].inner_text().strip()
+            # ১. Team Name (প্রথম কলাম)
+            team_name = cols[0].get_text(strip=True)
             
+            # ২. Event Name (দ্বিতীয় কলাম - Title)
+            title_col = cols[1]
+            event_name = title_col.get_text(strip=True)
+            
+            # ৩. সঠিক ওয়াচ পেজ লিংক খুঁজে বের করার লজিক (যেখানে 'schedule' নেই)
+            match_link = BASE_URL
+            
+            # টাইটেল বা পুরো সারির সমস্ত <a> ট্যাগ চেক করা
+            all_links = row.find_all('a')
+            for a_tag in all_links:
+                href = a_tag.get('href')
+                if href:
+                    href = href.strip()
+                    # শর্ত: লিংকের ভেতরে যদি 'schedule' লেখা থাকে, তবে সেটি ধরব না!
+                    if 'schedule' not in href.lower():
+                        if href.startswith('http'):
+                            match_link = href
+                        else:
+                            clean_href = href.lstrip('/')
+                            match_link = f"{BASE_URL}/{clean_href}"
+                        break # সঠিক লিংক পেয়ে গেলে লুপ ভেঙে বের হয়ে যাবো
+
+            # ৪. Match Time (তৃতীয় কলাম এবং কাউন্টডাউন)
+            match_time = cols[2].get_text(strip=True)
             if len(cols) > 3:
-                extra_text = cols[3].inner_text().strip()
+                extra_text = cols[3].get_text(strip=True)
                 if extra_text:
                     match_time = f"{match_time} {extra_text}"
-
-            # সবুজ টাইটেল বা লিঙ্কে ক্লিক করে আসল ওয়াচ পেজের লিংক বের করার লজিক
-            watch_link = BASE_URL
-            try:
-                link_element = cols[1].locator('a')
-                if link_element.count() > 0:
-                    # নতুন পেজ ওপেন না করে বা ক্লিক করে রিডাইরেক্ট ইউআরএল ক্যাপচার করা
-                    with page.expect_navigation(timeout=5000):
-                        link_element.first.click()
-                    watch_link = page.url
-                    # কাজ শেষে আবার হোমপেজে ফিরে আসা
-                    page.goto(BASE_URL, timeout=60000)
-                    page.wait_for_selector('table', timeout=10000)
-                else:
-                    # যদি ট্যাগ না থাকে, href অ্যাট্রিবিউট সরাসরি নেওয়া
-                    href = link_element.first.get_attribute('href')
-                    if href:
-                        watch_link = href if href.startswith('http') else BASE_URL + href
-            except Exception:
-                # ক্লিক করতে সমস্যা হলে বা টাইমআউট হলে বেস লিংক বা ফলব্যাক রাখা
-                watch_link = BASE_URL
 
             matches_list.append({
                 "Team Name": team_name,
                 "Event Name": event_name,
                 "Match Time": match_time,
-                "Link": watch_link
+                "Link": match_link
             })
             
-        browser.close()
-        
-        # JSON ফাইলে সেভ করা
+        # ফাইল সেভ
         with open('match_table.json', 'w', encoding='utf-8') as f:
             json.dump(matches_list, f, ensure_ascii=False, indent=4)
             
-        print("সঠিক ওয়াচ পেজ লিংক সহ ডেটা সফলভাবে সেভ হয়েছে!")
-
-if __name__ == "__main__":
-    scrape_matches()
+        print("সিডিউল লিংক বাদ দিয়ে সঠিক ওয়াচ পেজের লিংক সফলভাবে খুঁজে বের করা হয়েছে!")
+    else:
+        print("টেবিল পাওয়া যায়নি।")
+else:
+    print("ওয়েবসাইট ভিজিট করা যায়নি।")
