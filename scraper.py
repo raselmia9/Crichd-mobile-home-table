@@ -21,79 +21,67 @@ if response.status_code == 200:
         rows = table.find_all('tr')
         
         for index, row in enumerate(rows):
+            # প্রথম সারি হেডার (League, Title, Match Time) হলে স্কিপ করা
             if index == 0:
                 continue
                 
             cols = row.find_all(['td', 'th'])
-            if not cols or len(cols) < 2:
+            if not cols or len(cols) < 3:
                 continue
                 
             team_name = ""
             event_name = ""
             match_time = ""
-            match_link = BASE_URL
+            match_link = None
             
-            col_texts = []
-            for col in cols:
-                txt = col.text.strip().replace('\n', ' ').replace('\r', '')
-                txt = " ".join(txt.split())
-                col_texts.append(txt)
+            # ১. প্রথম কলাম থেকে Team Name (League) নেওয়া
+            team_name = cols[0].text.strip().replace('\n', ' ').strip()
+            team_name = " ".join(team_name.split())
             
-            # --- ভ্যালিডেশন চেক করে টিম, ইভেন্ট ও টাইম বসানো ---
-            for text in col_texts:
-                if not text:
-                    continue
-                
-                if re.search(r'\d{2}-\d{2}-\d{4}', text) or re.search(r'\d{2}:\d{2}', text) or "Today" in text or "PM" in text or "AM" in text:
-                    if not match_time:
-                        match_time = text
-                        continue
-
-                if ("vs" in text or "T20" in text or "League" in text or "Test" in text or len(text) < 15) and not team_name and text != match_time:
-                    if len(text) < 20 and not event_name:
-                        team_name = text
-                        continue
-
-                if not event_name and text != match_time and text != team_name:
-                    event_name = text
-                elif not team_name and text != match_time and text != event_name:
-                    team_name = text
-
-            if not team_name and len(col_texts) > 0:
-                team_name = col_texts[0]
-            if not event_name and len(col_texts) > 1:
-                event_name = col_texts[1]
-            if not match_time and len(col_texts) > 2:
-                match_time = col_texts[2]
-
-            # --- আপনার দেওয়া ফরম্যাট অনুযায়ী সঠিক ওয়াচ পেজ লিংক তৈরির স্মার্ট লজিক ---
-            # অগ্রাধিকার ১: যদি টেবিলের ট্যাগ থেকে কোনো ভালো লিংক পাওয়া যায়, সেটিকে চেক করা
-            extracted_slug = ""
-            for col in cols:
-                link_tag = col.find('a')
-                if link_tag and link_tag.get('href'):
-                    href = link_tag.get('href').strip('/')
-                    # যদি লিংকের ভেতরে স্ল্যাশ বা বড় পাথ থাকে, শেষ অংশটি বা মূল স্লগটি নেওয়া
-                    parts = href.split('/')
-                    if parts:
-                        extracted_slug = parts[-1]
-                    break
+            # ২. দ্বিতীয় কলাম থেকে Event Name (Title) এবং আসল ওয়াচ পেজ লিংক (href) নেওয়া
+            title_col = cols[1]
+            event_name = title_col.text.strip().replace('\n', ' ').strip()
+            event_name = " ".join(event_name.split())
             
-            # অগ্রাধিকার ২: যদি ট্যাগ থেকে লিংক না মেলে, তবে 'Event Name' বা 'Team Name' থেকে স্লাগ তৈরি করা
-            # যেমন: "India vs Sri Lanka" থেকে হবে "india-vs-sri-lanka"
-            if not extracted_slug and event_name:
-                extracted_slug = event_name.lower().replace(' vs ', '-vs-').replace(' ', '-')
-                # অতিরিক্ত কোনো স্পেশাল ক্যারেক্টার বা ডাবল হাইফেন থাকলে পরিষ্কার করা
-                extracted_slug = re.sub(r'[^a-z0-9\-]', '', extracted_slug)
-                extracted_slug = re.sub(r'-+', '-', extracted_slug).strip('-')
-
-            if extracted_slug:
-                match_link = f"{BASE_URL}/{extracted_slug}"
-            else:
+            # Title কলামের ভেতরে থাকা <a> ট্যাগ থেকে সরাসরি আসল লিংক সংগ্রহ করা
+            link_tag = title_col.find('a')
+            if link_tag and link_tag.get('href'):
+                href = link_tag.get('href')
+                if href.startswith('/'):
+                    match_link = BASE_URL + href
+                elif not href.startswith('http'):
+                    match_link = BASE_URL + '/' + href
+                else:
+                    match_link = href
+            
+            # যদি Title কলামে লিংক না পাওয়া যায়, পুরো সারির যেকোনো <a> ট্যাগ থেকে খোঁজা
+            if not match_link:
+                for col in cols:
+                    l_tag = col.find('a')
+                    if l_tag and l_tag.get('href'):
+                        href = l_tag.get('href')
+                        if href.startswith('/'):
+                            match_link = BASE_URL + href
+                        elif not href.startswith('http'):
+                            match_link = BASE_URL + '/' + href
+                        else:
+                            match_link = href
+                        break
+            
+            # যদি তবুও লিংক না থাকে, ফলব্যাক হিসেবে বেস ইউআরএল বা ডামি রাখা
+            if not match_link:
                 match_link = BASE_URL
 
-            if match_time:
-                match_time = match_time.replace('\\n', ' ').strip()
+            # ৩. তৃতীয় কলাম থেকে Match Time নেওয়া (কাউন্টডাউন বা আসল সময় সহ)
+            match_time = cols[2].text.strip().replace('\n', ' ').strip()
+            match_time = " ".join(match_time.split())
+            
+            # যদি চতুর্থ কলামে অতিরিক্ত সময় বা কাউন্টডাউন থাকে
+            if len(cols) > 3:
+                extra_col = cols[3].text.strip().replace('\n', ' ').strip()
+                extra_col = " ".join(extra_col.split())
+                if extra_col:
+                    match_time = f"{match_time} {extra_col}".strip()
 
             match_dict = {
                 "Team Name": team_name,
@@ -104,10 +92,11 @@ if response.status_code == 200:
             
             matches_list.append(match_dict)
             
+        # সরাসরি সঠিক JSON লিস্ট আকারে সেভ করা
         with open('match_table.json', 'w', encoding='utf-8') as f:
             json.dump(matches_list, f, ensure_ascii=False, indent=4)
             
-        print("সঠিক ওয়াচ লিংক ফরম্যাট সহ ডেটা সেভ হয়েছে!")
+        print("টাইটেল কলামের আসল লিংকসহ ডেটা সফলভাবে সেভ হয়েছে!")
     else:
         print("টেবিল পাওয়া যায়নি।")
 else:
