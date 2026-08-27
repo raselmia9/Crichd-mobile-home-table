@@ -1,38 +1,38 @@
 [
     {
-        "Team Name": "",
-        "Event Name": "IND vs SL",
-        "Match Time": "India vs Sri Lanka 23-08-202604:00",
+        "Team Name": "IND vs SL",
+        "Event Name": "India vs Sri Lanka",
+        "Match Time": "23-08-202604:00",
         "Link": "https://crichd.mobile/india-vs-sri-lanka"
     },
     {
-        "Team Name": "",
-        "Event Name": "CPL T20",
-        "Match Time": "Caribbean Premier League 25-08-202623:00",
+        "Team Name": "CPL T20",
+        "Event Name": "Caribbean Premier League",
+        "Match Time": "25-08-202623:00",
         "Link": "https://crichd.mobile/caribbean-premier-league-cpl"
     },
     {
-        "Team Name": "",
-        "Event Name": "T20 League",
-        "Match Time": "Top End T20 26-08-202600:30",
+        "Team Name": "T20 League",
+        "Event Name": "Top End T20",
+        "Match Time": "26-08-202600:30",
         "Link": "https://crichd.mobile/top-end-t20"
     },
     {
-        "Team Name": "",
-        "Event Name": "IND vs SL",
-        "Match Time": "2nd Test India vs Sri Lanka 26-08-202604:30",
+        "Team Name": "IND vs SL",
+        "Event Name": "2nd Test India vs Sri Lanka",
+        "Match Time": "26-08-202604:30",
         "Link": "https://crichd.mobile/2nd-test-india-vs-sri-lanka"
     },
     {
-        "Team Name": "",
-        "Event Name": "T20 League",
-        "Match Time": "TNPL T20 26-08-202614:00",
+        "Team Name": "T20 League",
+        "Event Name": "TNPL T20",
+        "Match Time": "26-08-202614:00",
         "Link": "https://crichd.mobile/tamil-nadu-premier-league-tnpl-live-streaming"
     },
     {
-        "Team Name": "",
-        "Event Name": "PAK vs ENG",
-        "Match Time": "Pakistan vs England Today09:30",
+        "Team Name": "PAK vs ENG",
+        "Event Name": "Pakistan vs England",
+        "Match Time": "Today09:30",
         "Link": "https://crichd.mobile/pakistan-vs-england"
     }
 ]
