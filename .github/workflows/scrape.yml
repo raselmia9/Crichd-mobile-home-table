@@ -1,9 +1,9 @@
-name: Auto CricHD Scraper
+name: Auto CricHD Playwright Scraper
 
 on:
   schedule:
-    - cron: '0 * * * *' # প্রতি ১ ঘণ্টা পর পর অটোমেটিক রান করবে
-  workflow_dispatch: # গিটহাব থেকে ম্যানুয়ালি রান করার বাটন পাওয়ার জন্য
+    - cron: '0 * * * *' # প্রতি ১ ঘণ্টা পর পর
+  workflow_dispatch:
 
 jobs:
   scrape:
@@ -19,7 +19,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests beautifulsoup4
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Playwright Browsers
+        run: playwright install chromium
 
       - name: Run scraper script
         run: python scraper.py
@@ -27,5 +31,5 @@ jobs:
       - name: Commit and push changes if table updates
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Auto-update match table json data"
+          commit_message: "Auto-update match table with real watch links"
           file_patterns: match_table.json
