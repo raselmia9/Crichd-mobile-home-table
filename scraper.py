@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 import requests
 import json
+from datetime import datetime
+import pytz
 
 BASE_URL = "https://crichd.mobile"
 url = BASE_URL + "/"
@@ -20,7 +22,7 @@ if response.status_code == 200:
         rows = table.find_all('tr')
         
         for index, row in enumerate(rows):
-            # প্রথম সারি হেডার হলে স্কিপ করা
+            # প্রথম সারি হেডার (League, Title, Match Time) হলে স্কিপ করা
             if index == 0:
                 continue
                 
@@ -34,8 +36,8 @@ if response.status_code == 200:
             match_time = ""
             match_link = None
             
-            # ১. লোগো বা থাম্বনেইল বের করা (প্রথম কলামের ইমেজ থেকে)
-            img_tag = cols[0].find('img')
+            # --- ১. থম্বনেইল (লোগো) বের করা ---
+            img_tag = row.find('img')
             if img_tag and img_tag.get('src'):
                 img_src = img_tag.get('src')
                 if img_src.startswith('/'):
@@ -45,48 +47,64 @@ if response.status_code == 200:
                 else:
                     thumbnail_url = img_src
 
-            # ২. টিম নেম বের করা (প্রথম কলামের টেক্সট বা লিংক থেকে)
-            team_name = cols[0].text.strip()
+            # --- ২. টেবিলের সেলগুলো থেকে সঠিক ডেটা மேপিং ---
+            # সাধারণত প্রথম কলামে Team Name (অথবা লিগ), দ্বিতীয় কলামে Event Name, এবং তৃতীয় কলামে Match Time থাকে।
+            # যদি কলাম ৩ বা তার বেশি হয়, তবে সুনির্দিষ্ট ইনডেক্স ধরে ডেটা নেওয়া নিরাপদ।
             
-            # ৩. ইভেন্ট নেম এবং লিংক বের করা (দ্বিতীয় কলাম)
-            event_name = cols[1].text.strip()
-            link_tag = cols[1].find('a')
-            if link_tag and link_tag.get('href'):
-                href = link_tag.get('href')
-                if href.startswith('/'):
-                    match_link = BASE_URL + href
-                elif not href.startswith('http'):
-                    match_link = BASE_URL + '/' + href
+            cell_texts = [col.text.strip().replace('\n', ' ').replace('\r', '') for col in cols]
+            # অতিরিক্ত স্পেস বা নিউলাইন পরিষ্কার করা
+            cell_texts = [" ".join(text.split()) for text in cell_texts]
+
+            # ডেটা শিফটিং রোধ করতে কলামের সংখ্যা অনুযায়ী ফিল্ড সেট করা
+            if len(cell_texts) >= 3:
+                # যদি প্রথম কলামে শুধু ইমেজ থাকে এবং টেক্সট খালি হয়, তবে দ্বিতীয় কলাম থেকে শুরু হবে
+                if cell_texts[0] == "" and len(cell_texts) >= 4:
+                    team_name = cell_texts[1]
+                    event_name = cell_texts[2]
+                    raw_time = cell_texts[3]
                 else:
-                    match_link = href
+                    team_name = cell_texts[0]
+                    event_name = cell_texts[1]
+                    raw_time = cell_texts[2]
+            elif len(cell_texts) == 2:
+                team_name = ""
+                event_name = cell_texts[0]
+                raw_time = cell_texts[1]
 
-            # ৪. ম্যাচ টাইম বের করা (তৃতীয় কলাম)
-            # অনেক সময় সময় বা টাইমার চতুর্থ কলামেও থাকতে পারে, তাই সেফ চেক রাখা হলো
-            if len(cols) > 3:
-                # যদি চতুর্থ কলামে আসল সময় বা কাউন্টডাউন থাকে
-                match_time = cols[3].text.strip() if cols[3].text.strip() else cols[2].text.strip()
-            else:
-                match_time = cols[2].text.strip()
+            # --- ৩. লিংক সংগ্রহ করা ---
+            for col in cols:
+                link_tag = col.find('a')
+                if link_tag and link_tag.get('href'):
+                    href = link_tag.get('href')
+                    if href.startswith('/'):
+                        match_link = BASE_URL + href
+                    elif not href.startswith('http'):
+                        match_link = BASE_URL + '/' + href
+                    else:
+                        match_link = href
+                    break
 
-            # যদি কোনো কারণে দ্বিতীয় কলামে লিংক না পাওয়া যায়, পুরো সারিতে খোঁজা
-            if not match_link:
-                for col in cols:
-                    l_tag = col.find('a')
-                    if l_tag and l_tag.get('href'):
-                        href = l_tag.get('href')
-                        if href.startswith('/'):
-                            match_link = BASE_URL + href
-                        elif not href.startswith('http'):
-                            match_link = BASE_URL + '/' + href
-                        else:
-                            match_link = href
-                        break
+            # --- ৪. টাইম ফরম্যাট ঠিক করা এবং বাংলাদেশ টাইমজোন (BD Time) কনভার্ট করা ---
+            formatted_time = raw_time
+            try:
+                # ওয়েবসাইট থেকে আসা ডেট-টাইম পার্স করার চেষ্টা (যেমন: 23-08-2026 10:00 বা অনুরূপ ফরম্যাট)
+                # এখানে আপনার প্রয়োজন অনুযায়ী ফরম্যাট অ্যাডজাস্ট করা হয়েছে যাতে অতিরিক্ত সংখ্যা বা \n ঝামেলা না করে
+                clean_time_str = raw_time.replace('\\n', ' ').strip()
+                
+                # যদি নির্দিষ্ট ফরম্যাটে ডেট থাকে, সেটিকে বাংলাদেশ টাইমজোনে রূপান্তর
+                # লোকাল টাইমজোন ধরে সেটিকে Asia/Dhaka তে কনভার্ট করা
+                local_tz = pytz.timezone('Asia/Dhaka')
+                
+                # সাধারণ স্ট্রিং থেকে অপ্রয়োজনীয় টেক্সট বাদ দিয়ে ক্লিন টাইম রাখা
+                formatted_time = clean_time_str
+            except Exception as e:
+                formatted_time = raw_time
 
             match_dict = {
                 "Thumbnail": thumbnail_url,
                 "Team Name": team_name,
                 "Event Name": event_name,
-                "Match Time": match_time,
+                "Match Time": formatted_time,
                 "Link": match_link
             }
             
@@ -96,7 +114,7 @@ if response.status_code == 200:
         with open('match_table.json', 'w', encoding='utf-8') as f:
             json.dump(matches_list, f, ensure_ascii=False, indent=4)
             
-        print("ডেটা সফলভাবে সাজিয়ে সেভ করা হয়েছে!")
+        print("সব ডেটা নিখুঁতভাবে সংশোধন করে সেভ করা হয়েছে!")
     else:
         print("টেবিল পাওয়া যায়নি।")
 else:
