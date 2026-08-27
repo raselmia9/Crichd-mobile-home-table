@@ -34,41 +34,42 @@ if response.status_code == 200:
             match_time = ""
             match_link = None
             
-            # টেবিলের কলামগুলো থেকে সুনির্দিষ্টভাবে ডাটা বের করা
-            for i, col in enumerate(cols):
-                text = col.text.strip()
-                
-                # ১. প্রথম কলাম: লোগো (Thumbnail) এবং Team Name
-                if i == 0:
-                    team_name = text
-                    img_tag = col.find('img')
-                    if img_tag and img_tag.get('src'):
-                        img_src = img_tag.get('src')
-                        if img_src.startswith('/'):
-                            thumbnail_url = BASE_URL + img_src
-                        elif not img_src.startswith('http'):
-                            thumbnail_url = BASE_URL + '/' + img_src
-                        else:
-                            thumbnail_url = img_src
-                            
-                # ২. দ্বিতীয় কলাম: Event Name এবং Link
-                elif i == 1:
-                    event_name = text
-                    link_tag = col.find('a')
-                    if link_tag and link_tag.get('href'):
-                        href = link_tag.get('href')
-                        if href.startswith('/'):
-                            match_link = BASE_URL + href
-                        elif not href.startswith('http'):
-                            match_link = BASE_URL + '/' + href
-                        else:
-                            match_link = href
-                            
-                # ৩. তৃতীয় কলাম: Match Time
-                elif i == 2:
-                    match_time = text
-
-            # যদি অন্য কোনো কলামে লিংক থাকে এবং কলাম ২ এ না পাওয়া যায়
+            # ১. Thumbnail (লোগো) এবং Team Name বের করা (সাধারণত প্রথম কলামে থাকে)
+            first_col = cols[0]
+            img_tag = first_col.find('img')
+            if img_tag and img_tag.get('src'):
+                img_src = img_tag.get('src')
+                if img_src.startswith('/'):
+                    thumbnail_url = BASE_URL + img_src
+                elif not img_src.startswith('http'):
+                    thumbnail_url = BASE_URL + '/' + img_src
+                else:
+                    thumbnail_url = img_src
+            
+            # প্রথম কলামের টেক্সট থেকে ইমেজ ট্যাগ বাদ দিয়ে শুধু নাম নেওয়া
+            for img in first_col.find_all('img'):
+                img.decompose()
+            team_name = first_col.text.strip()
+            
+            # ২. Event Name এবং Link বের করা (দ্বিতীয় কলাম)
+            if len(cols) > 1:
+                second_col = cols[1]
+                event_name = second_col.text.strip()
+                link_tag = second_col.find('a')
+                if link_tag and link_tag.get('href'):
+                    href = link_tag.get('href')
+                    if href.startswith('/'):
+                        match_link = BASE_URL + href
+                    elif not href.startswith('http'):
+                        match_link = BASE_URL + '/' + href
+                    else:
+                        match_link = href
+            
+            # ৩. Match Time বের করা (তৃতীয় কলাম)
+            if len(cols) > 2:
+                match_time = cols[2].text.strip()
+            
+            # যদি দ্বিতীয় কলামে লিংক না পাওয়া যায়, পুরো সারিতে খোঁজা
             if not match_link:
                 for col in cols:
                     link_tag = col.find('a')
@@ -96,7 +97,7 @@ if response.status_code == 200:
         with open('match_table.json', 'w', encoding='utf-8') as f:
             json.dump(matches_list, f, ensure_ascii=False, indent=4)
             
-        print("সঠিক ফরম্যাটে ডেটা সেভ হয়েছে!")
+        print("সঠিক ফরম্যাটে ডেটা সফলভাবে আপডেট হয়েছে!")
     else:
         print("টেবিল পাওয়া যায়নি।")
 else:
