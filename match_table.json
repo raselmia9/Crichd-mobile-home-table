@@ -1,12 +1,5 @@
 [
     {
-        "Team Name": "IND vs SL",
-        "Event Name": "India vs Sri Lanka",
-        "Match Time": "23-08-202604:00",
-        "Link": "https://crichd.mobile/india-vs-sri-lanka",
-        "Team Logo": "https://flagcdn.com/w80/in.png"
-    },
-    {
         "Team Name": "CPL T20",
         "Event Name": "Caribbean Premier League",
         "Match Time": "25-08-202623:00",
@@ -19,13 +12,6 @@
         "Match Time": "26-08-202600:30",
         "Link": "https://crichd.mobile/top-end-t20",
         "Team Logo": "http://logocdn.wapsite.me/images/DEFAULT.png"
-    },
-    {
-        "Team Name": "IND vs SL",
-        "Event Name": "2nd Test India vs Sri Lanka",
-        "Match Time": "26-08-202604:30",
-        "Link": "https://crichd.mobile/2nd-test-india-vs-sri-lanka",
-        "Team Logo": "https://flagcdn.com/w80/in.png"
     },
     {
         "Team Name": "T20 League",
