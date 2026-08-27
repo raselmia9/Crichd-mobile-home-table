@@ -1,4 +1,4 @@
-name: Auto CricHD Playwright Scraper
+name: Auto CricHD Scraper
 
 on:
   schedule:
@@ -22,14 +22,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install Playwright Browsers
-        run: playwright install chromium
-
       - name: Run scraper script
         run: python scraper.py
 
       - name: Commit and push changes if table updates
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Auto-update match table with real watch links"
+          commit_message: "Auto-update match table with clean watch links"
           file_patterns: match_table.json
