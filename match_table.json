@@ -23,8 +23,15 @@
     {
         "Team Name": "PAK vs ENG",
         "Event Name": "Pakistan vs England",
-        "Match Time": "Today09:30",
+        "Match Time": "27-08-202609:30",
         "Link": "https://crichd.mobile/pakistan-vs-england",
         "Team Logo": "https://flagcdn.com/w80/pk.png"
+    },
+    {
+        "Team Name": "T20I Tri-Series",
+        "Event Name": "Namibia vs South Africa",
+        "Match Time": "Today12:00",
+        "Link": "https://crichd.mobile/namibia-vs-south-africa",
+        "Team Logo": "http://logocdn.wapsite.me/images/I.png"
     }
 ]
