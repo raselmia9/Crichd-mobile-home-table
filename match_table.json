@@ -9,35 +9,28 @@
     {
         "Team Name": "CPL T20",
         "Event Name": "Caribbean Premier League",
-        "Match Time": "Today22:45",
+        "Match Time": "30-08-202622:45",
         "Link": "https://crichd.mobile/caribbean-premier-league-cpl",
-        "Team Logo": "http://logocdn.wapsite.me/images/CPL.png"
-    },
-    {
-        "Team Name": "CPL T20",
-        "Event Name": "Patriots vs Falcons",
-        "Match Time": "Today23:00",
-        "Link": "https://crichd.mobile/patriots-vs-falcons",
         "Team Logo": "http://logocdn.wapsite.me/images/CPL.png"
     },
     {
         "Team Name": "ODI Match",
         "Event Name": "Nepal vs Bahrain",
-        "Match Time": "Tomorrow01:30",
+        "Match Time": "Today01:30",
         "Link": "https://crichd.mobile/nepal-vs-bahrain",
         "Team Logo": "http://logocdn.wapsite.me/images/ODI.png"
     },
     {
         "Team Name": "T20I Tri-Series",
         "Event Name": "Namibia vs Zimbabwe",
-        "Match Time": "Tomorrow12:00",
+        "Match Time": "Today12:00",
         "Link": "https://crichd.mobile/namibia-vs-zimbabwe",
         "Team Logo": "http://logocdn.wapsite.me/images/I.png"
     },
     {
         "Team Name": "T20I Tri-Series",
         "Event Name": "South Africa vs Zimbabwe",
-        "Match Time": "01-09-202612:00",
+        "Match Time": "Tomorrow12:00",
         "Link": "https://crichd.mobile/south-africa-vs-zimbabwe",
         "Team Logo": "http://logocdn.wapsite.me/images/I.png"
     }
