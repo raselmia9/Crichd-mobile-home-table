@@ -19,5 +19,12 @@
         "Match Time": "Today09:30",
         "Link": "https://crichd.mobile/pakistan-vs-england",
         "Team Logo": "https://flagcdn.com/w80/pk.png"
+    },
+    {
+        "Team Name": "ODI Match",
+        "Event Name": "Nepal vs Oman",
+        "Match Time": "Tomorrow01:30",
+        "Link": "https://crichd.mobile/nepal-vs-oman",
+        "Team Logo": "http://logocdn.wapsite.me/images/ODI.png"
     }
 ]
