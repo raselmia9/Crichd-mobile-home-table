@@ -19,5 +19,12 @@
         "Match Time": "09-09-202609:30",
         "Link": "https://crichd.mobile/pakistan-vs-england",
         "Team Logo": "https://flagcdn.com/w80/pk.png"
+    },
+    {
+        "Team Name": "India vs AFG",
+        "Event Name": "India vs Afghanistan",
+        "Match Time": "13-09-202613:30",
+        "Link": "https://crichd.mobile/india-vs-afghanistan",
+        "Team Logo": "https://flagcdn.com/w80/in.png"
     }
 ]
