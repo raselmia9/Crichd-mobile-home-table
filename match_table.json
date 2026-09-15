@@ -7,13 +7,6 @@
         "Team Logo": "https://flagcdn.com/w80/in.png"
     },
     {
-        "Team Name": "CPL T20",
-        "Event Name": "Caribbean Premier League",
-        "Match Time": "08-09-202622:45",
-        "Link": "https://crichd.mobile/caribbean-premier-league-cpl",
-        "Team Logo": "http://logocdn.wapsite.me/images/CPL.png"
-    },
-    {
         "Team Name": "AUS vs ZIM",
         "Event Name": "Australia vs Zimbabwe",
         "Match Time": "Today07:30",
@@ -26,5 +19,12 @@
         "Match Time": "Today17:15",
         "Link": "https://crichd.mobile/england-vs-sri-lanka",
         "Team Logo": "https://flagcdn.com/w80/lk.png"
+    },
+    {
+        "Team Name": "CPL T20",
+        "Event Name": "Caribbean Premier League",
+        "Match Time": "Tomorrow22:45",
+        "Link": "https://crichd.mobile/caribbean-premier-league-cpl",
+        "Team Logo": "http://logocdn.wapsite.me/images/CPL.png"
     }
 ]
