@@ -2,9 +2,16 @@
     {
         "Team Name": "India vs WI",
         "Event Name": "India vs West Indies",
-        "Match Time": "Today13:00",
+        "Match Time": "Tomorrow13:00",
         "Link": "https://crichd.mobile/india-vs-west-indies",
         "Team Logo": "https://flagcdn.com/w80/in.png"
+    },
+    {
+        "Team Name": "T20 League",
+        "Event Name": "World Championship of Legends",
+        "Match Time": "09-10-202611:30",
+        "Link": "https://crichd.mobile/world-championship-of-legends",
+        "Team Logo": "http://logocdn.wapsite.me/images/DEFAULT.png"
     },
     {
         "Team Name": "AFG vs BAN",
@@ -21,16 +28,9 @@
         "Team Logo": "https://flagcdn.com/w80/au.png"
     },
     {
-        "Team Name": "T20 League",
-        "Event Name": "World Championship of Legends",
-        "Match Time": "Today11:30",
-        "Link": "https://crichd.mobile/world-championship-of-legends",
-        "Team Logo": "http://logocdn.wapsite.me/images/DEFAULT.png"
-    },
-    {
         "Team Name": "Pak vs SL",
         "Event Name": "2nd T20 Pakistan vs Sri Lanka",
-        "Match Time": "11-10-202613:00",
+        "Match Time": "Tomorrow13:00",
         "Link": "https://crichd.mobile/2nd-t20-pakistan-vs-sri-lanka",
         "Team Logo": "https://flagcdn.com/w80/lk.png"
     }
