@@ -19,5 +19,19 @@
         "Match Time": "Tomorrow15:30",
         "Link": "https://crichd.mobile/world-championship-of-legends",
         "Team Logo": "http://logocdn.wapsite.me/images/DEFAULT.png"
+    },
+    {
+        "Team Name": "Tri-Series",
+        "Event Name": "Afghanistan vs Zimbabwe",
+        "Match Time": "19-10-202611:30",
+        "Link": "https://crichd.mobile/afghanistan-vs-zimbabwe",
+        "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
+    },
+    {
+        "Team Name": "Tri-Series",
+        "Event Name": "England vs Pakistan",
+        "Match Time": "20-10-202608:00",
+        "Link": "https://crichd.mobile/england-vs-pakistan",
+        "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
     }
 ]
