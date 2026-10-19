@@ -19,5 +19,33 @@
         "Match Time": "Tomorrow08:00",
         "Link": "https://crichd.mobile/england-vs-pakistan",
         "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
+    },
+    {
+        "Team Name": "Tri-Series",
+        "Event Name": "Bangladesh vs Afghanistan",
+        "Match Time": "21-10-202611:30",
+        "Link": "https://crichd.mobile/bangladesh-vs-afghanistan",
+        "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
+    },
+    {
+        "Team Name": "IND vs NZ",
+        "Event Name": "1st T20 India vs New Zealand",
+        "Match Time": "22-10-202607:00",
+        "Link": "https://crichd.mobile/1st-t20-india-vs-new-zealand",
+        "Team Logo": "https://flagcdn.com/w80/in.png"
+    },
+    {
+        "Team Name": "Tri-Series",
+        "Event Name": "England vs Sri Lanka",
+        "Match Time": "22-10-202608:00",
+        "Link": "https://crichd.mobile/england-vs-sri-lanka",
+        "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
+    },
+    {
+        "Team Name": "IND vs NZ",
+        "Event Name": "2nd T20 India vs New Zealand",
+        "Match Time": "24-10-202607:00",
+        "Link": "https://crichd.mobile/2nd-t20-india-vs-new-zealand",
+        "Team Logo": "https://flagcdn.com/w80/in.png"
     }
 ]
