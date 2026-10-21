@@ -1,17 +1,17 @@
 [
     {
-        "Team Name": "AUS vs SA",
-        "Event Name": "Australia vs South Africa",
-        "Match Time": "Today08:00",
-        "Link": "https://crichd.mobile/australia-vs-south-africa-live-streaming-free",
-        "Team Logo": "https://flagcdn.com/w80/au.png"
-    },
-    {
         "Team Name": "IND vs NZ",
         "Event Name": "1st T20 India vs New Zealand",
         "Match Time": "Tomorrow07:00",
         "Link": "https://crichd.mobile/1st-t20-india-vs-new-zealand",
         "Team Logo": "https://flagcdn.com/w80/in.png"
+    },
+    {
+        "Team Name": "AUS vs SA",
+        "Event Name": "Australia vs South Africa",
+        "Match Time": "Tomorrow08:00",
+        "Link": "https://crichd.mobile/australia-vs-south-africa-live-streaming-free",
+        "Team Logo": "https://flagcdn.com/w80/au.png"
     },
     {
         "Team Name": "Tri-Series",
