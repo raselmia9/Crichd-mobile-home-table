@@ -7,13 +7,6 @@
         "Team Logo": "https://flagcdn.com/w80/au.png"
     },
     {
-        "Team Name": "Tri-Series",
-        "Event Name": "Bangladesh vs Afghanistan",
-        "Match Time": "Today11:30",
-        "Link": "https://crichd.mobile/bangladesh-vs-afghanistan",
-        "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
-    },
-    {
         "Team Name": "IND vs NZ",
         "Event Name": "1st T20 India vs New Zealand",
         "Match Time": "Tomorrow07:00",
@@ -25,6 +18,13 @@
         "Event Name": "England vs Sri Lanka",
         "Match Time": "Tomorrow08:00",
         "Link": "https://crichd.mobile/england-vs-sri-lanka",
+        "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
+    },
+    {
+        "Team Name": "Tri-Series",
+        "Event Name": "Afghanistan vs Zimbabwe",
+        "Match Time": "23-10-202611:30",
+        "Link": "https://crichd.mobile/afghanistan-vs-zimbabwe",
         "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
     },
     {
