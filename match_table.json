@@ -1,12 +1,5 @@
 [
     {
-        "Team Name": "Tri-Series",
-        "Event Name": "Afghanistan vs Zimbabwe",
-        "Match Time": "Today11:30",
-        "Link": "https://crichd.mobile/afghanistan-vs-zimbabwe",
-        "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
-    },
-    {
         "Team Name": "IND vs NZ",
         "Event Name": "2nd T20 India vs New Zealand",
         "Match Time": "Tomorrow07:00",
@@ -19,6 +12,13 @@
         "Match Time": "25-10-202608:00",
         "Link": "https://crichd.mobile/england-vs-pakistan",
         "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
+    },
+    {
+        "Team Name": "IND vs NZ",
+        "Event Name": "3rd T20 India vs New Zealand",
+        "Match Time": "27-10-202607:00",
+        "Link": "https://crichd.mobile/3rd-t20-india-vs-new-zealand",
+        "Team Logo": "https://flagcdn.com/w80/in.png"
     },
     {
         "Team Name": "Tri-Series",
