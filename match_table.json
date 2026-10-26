@@ -9,7 +9,7 @@
     {
         "Team Name": "T20 League",
         "Event Name": "NPL T20",
-        "Match Time": "Today10:45",
+        "Match Time": "Tomorrow06:45",
         "Link": "https://crichd.mobile/npl-t20",
         "Team Logo": "http://logocdn.wapsite.me/images/DEFAULT.png"
     },
@@ -25,6 +25,27 @@
         "Event Name": "Pakistan vs Sri Lanka",
         "Match Time": "Tomorrow08:00",
         "Link": "https://crichd.mobile/watch-pakistan-vs-sri-lanka-live-streaming-online",
+        "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
+    },
+    {
+        "Team Name": "AUS vs SA",
+        "Event Name": "3rd Test Australia vs South Africa",
+        "Match Time": "Tomorrow08:30",
+        "Link": "https://crichd.mobile/3rd-test-australia-vs-south-africa",
+        "Team Logo": "https://flagcdn.com/w80/au.png"
+    },
+    {
+        "Team Name": "Afg vs Zim",
+        "Event Name": "Afghanistan vs Zimbabwe",
+        "Match Time": "Tomorrow14:30",
+        "Link": "https://crichd.mobile/afghanistan-vs-zimbabwe",
+        "Team Logo": "https://flagcdn.com/w80/af.png"
+    },
+    {
+        "Team Name": "Tri-Series",
+        "Event Name": "England vs Sri Lanka",
+        "Match Time": "29-10-202608:00",
+        "Link": "https://crichd.mobile/england-vs-sri-lanka",
         "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
     }
 ]
