@@ -1,24 +1,10 @@
 [
     {
-        "Team Name": "IND vs NZ",
-        "Event Name": "India A vs New Zealand A",
-        "Match Time": "24-10-202622:00",
-        "Link": "https://crichd.mobile/india-a-vs-new-zealand-a",
-        "Team Logo": "https://flagcdn.com/w80/in.png"
-    },
-    {
         "Team Name": "T20 League",
         "Event Name": "NPL T20",
         "Match Time": "Today06:45",
         "Link": "https://crichd.mobile/npl-t20",
         "Team Logo": "http://logocdn.wapsite.me/images/DEFAULT.png"
-    },
-    {
-        "Team Name": "IND vs NZ",
-        "Event Name": "3rd T20 India vs New Zealand",
-        "Match Time": "Today07:00",
-        "Link": "https://crichd.mobile/3rd-t20-india-vs-new-zealand",
-        "Team Logo": "https://flagcdn.com/w80/in.png"
     },
     {
         "Team Name": "Tri-Series",
@@ -42,10 +28,24 @@
         "Team Logo": "https://flagcdn.com/w80/af.png"
     },
     {
+        "Team Name": "Ban vs WI",
+        "Event Name": "Bangladesh vs West Indies",
+        "Match Time": "Tomorrow04:00",
+        "Link": "https://crichd.mobile/bangladesh-vs-west-indies",
+        "Team Logo": "https://flagcdn.com/w80/bd.png"
+    },
+    {
         "Team Name": "Tri-Series",
         "Event Name": "England vs Sri Lanka",
         "Match Time": "29-10-202608:00",
         "Link": "https://crichd.mobile/england-vs-sri-lanka",
         "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
+    },
+    {
+        "Team Name": "IND vs NZ",
+        "Event Name": "4th T20 India vs New Zealand",
+        "Match Time": "30-10-202607:00",
+        "Link": "https://crichd.mobile/4th-t20-india-vs-new-zealand",
+        "Team Logo": "https://flagcdn.com/w80/in.png"
     }
 ]
