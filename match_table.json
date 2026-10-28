@@ -2,28 +2,35 @@
     {
         "Team Name": "T20 League",
         "Event Name": "NPL T20",
-        "Match Time": "Today06:45",
+        "Match Time": "27-10-202606:45",
         "Link": "https://crichd.mobile/npl-t20",
         "Team Logo": "http://logocdn.wapsite.me/images/DEFAULT.png"
     },
     {
         "Team Name": "AUS vs SA",
         "Event Name": "3rd Test Australia vs South Africa",
-        "Match Time": "Today08:30",
+        "Match Time": "27-10-202608:30",
         "Link": "https://crichd.mobile/3rd-test-australia-vs-south-africa",
         "Team Logo": "https://flagcdn.com/w80/au.png"
     },
     {
         "Team Name": "Ban vs WI",
         "Event Name": "Bangladesh vs West Indies",
-        "Match Time": "Tomorrow04:00",
+        "Match Time": "Today04:00",
         "Link": "https://crichd.mobile/bangladesh-vs-west-indies",
         "Team Logo": "https://flagcdn.com/w80/bd.png"
     },
     {
+        "Team Name": "WPL T20",
+        "Event Name": "WPL 2027 Auction",
+        "Match Time": "Today11:30",
+        "Link": "https://crichd.mobile/wpl-2027-auction",
+        "Team Logo": "http://logocdn.wapsite.me/images/WPL.png"
+    },
+    {
         "Team Name": "Tri-Series",
         "Event Name": "England vs Sri Lanka",
-        "Match Time": "29-10-202608:00",
+        "Match Time": "Tomorrow08:00",
         "Link": "https://crichd.mobile/england-vs-sri-lanka",
         "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
     },
@@ -33,5 +40,12 @@
         "Match Time": "30-10-202607:00",
         "Link": "https://crichd.mobile/4th-t20-india-vs-new-zealand",
         "Team Logo": "https://flagcdn.com/w80/in.png"
+    },
+    {
+        "Team Name": "Tri-Series",
+        "Event Name": "Pakistan vs Sri Lanka",
+        "Match Time": "31-10-202608:00",
+        "Link": "https://crichd.mobile/watch-pakistan-vs-sri-lanka-live-streaming-online",
+        "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
     }
 ]
