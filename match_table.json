@@ -1,12 +1,5 @@
 [
     {
-        "Team Name": "T20 League",
-        "Event Name": "NPL T20",
-        "Match Time": "27-10-202606:45",
-        "Link": "https://crichd.mobile/npl-t20",
-        "Team Logo": "http://logocdn.wapsite.me/images/DEFAULT.png"
-    },
-    {
         "Team Name": "AUS vs SA",
         "Event Name": "3rd Test Australia vs South Africa",
         "Match Time": "27-10-202608:30",
@@ -21,13 +14,6 @@
         "Team Logo": "https://flagcdn.com/w80/bd.png"
     },
     {
-        "Team Name": "Afg vs Zim",
-        "Event Name": "Afghanistan vs Zimbabwe",
-        "Match Time": "Today14:30",
-        "Link": "https://crichd.mobile/afghanistan-vs-zimbabwe",
-        "Team Logo": "https://flagcdn.com/w80/af.png"
-    },
-    {
         "Team Name": "Super Sixes",
         "Event Name": "Hong Kong Super Sixes",
         "Match Time": "Tomorrow00:30",
@@ -40,6 +26,13 @@
         "Match Time": "Tomorrow07:00",
         "Link": "https://crichd.mobile/4th-t20-india-vs-new-zealand",
         "Team Logo": "https://flagcdn.com/w80/in.png"
+    },
+    {
+        "Team Name": "T20 League",
+        "Event Name": "NPL T20",
+        "Match Time": "31-10-202606:45",
+        "Link": "https://crichd.mobile/npl-t20",
+        "Team Logo": "http://logocdn.wapsite.me/images/DEFAULT.png"
     },
     {
         "Team Name": "Tri-Series",
