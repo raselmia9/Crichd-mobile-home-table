@@ -21,11 +21,18 @@
         "Team Logo": "https://flagcdn.com/w80/bd.png"
     },
     {
-        "Team Name": "Tri-Series",
-        "Event Name": "England vs Sri Lanka",
-        "Match Time": "Today08:00",
-        "Link": "https://crichd.mobile/england-vs-sri-lanka",
-        "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
+        "Team Name": "Afg vs Zim",
+        "Event Name": "Afghanistan vs Zimbabwe",
+        "Match Time": "Today14:30",
+        "Link": "https://crichd.mobile/afghanistan-vs-zimbabwe",
+        "Team Logo": "https://flagcdn.com/w80/af.png"
+    },
+    {
+        "Team Name": "Super Sixes",
+        "Event Name": "Hong Kong Super Sixes",
+        "Match Time": "Tomorrow00:30",
+        "Link": "https://crichd.mobile/hong-kong-super-sixes",
+        "Team Logo": "http://logocdn.wapsite.me/images/SUPER.png"
     },
     {
         "Team Name": "IND vs NZ",
