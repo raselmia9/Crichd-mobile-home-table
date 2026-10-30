@@ -21,13 +21,6 @@
         "Team Logo": "http://logocdn.wapsite.me/images/SUPER.png"
     },
     {
-        "Team Name": "IND vs NZ",
-        "Event Name": "4th T20 India vs New Zealand",
-        "Match Time": "Today07:00",
-        "Link": "https://crichd.mobile/4th-t20-india-vs-new-zealand",
-        "Team Logo": "https://flagcdn.com/w80/in.png"
-    },
-    {
         "Team Name": "T20 League",
         "Event Name": "NPL T20",
         "Match Time": "Tomorrow06:45",
@@ -40,5 +33,12 @@
         "Match Time": "Tomorrow08:00",
         "Link": "https://crichd.mobile/watch-pakistan-vs-sri-lanka-live-streaming-online",
         "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
+    },
+    {
+        "Team Name": "IND vs NZ",
+        "Event Name": "5th T20 India vs New Zealand",
+        "Match Time": "01-11-202607:00",
+        "Link": "https://crichd.mobile/5th-t20-india-vs-new-zealand",
+        "Team Logo": "https://flagcdn.com/w80/in.png"
     }
 ]
