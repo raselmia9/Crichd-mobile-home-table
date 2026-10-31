@@ -1,19 +1,5 @@
 [
     {
-        "Team Name": "AUS vs SA",
-        "Event Name": "3rd Test Australia vs South Africa",
-        "Match Time": "27-10-202608:30",
-        "Link": "https://crichd.mobile/3rd-test-australia-vs-south-africa",
-        "Team Logo": "https://flagcdn.com/w80/au.png"
-    },
-    {
-        "Team Name": "Ban vs WI",
-        "Event Name": "Bangladesh vs West Indies",
-        "Match Time": "28-10-202604:00",
-        "Link": "https://crichd.mobile/bangladesh-vs-west-indies",
-        "Team Logo": "https://flagcdn.com/w80/bd.png"
-    },
-    {
         "Team Name": "Super Sixes",
         "Event Name": "Hong Kong Super Sixes",
         "Match Time": "30-10-202600:30",
@@ -26,13 +12,6 @@
         "Match Time": "Today06:45",
         "Link": "https://crichd.mobile/npl-t20",
         "Team Logo": "http://logocdn.wapsite.me/images/DEFAULT.png"
-    },
-    {
-        "Team Name": "Tri-Series",
-        "Event Name": "Pakistan vs Sri Lanka",
-        "Match Time": "Today08:00",
-        "Link": "https://crichd.mobile/watch-pakistan-vs-sri-lanka-live-streaming-online",
-        "Team Logo": "http://logocdn.wapsite.me/images/TRI-SERIES.png"
     },
     {
         "Team Name": "IND vs NZ",
