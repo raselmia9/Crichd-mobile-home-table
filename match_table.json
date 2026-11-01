@@ -1,24 +1,10 @@
 [
     {
-        "Team Name": "Super Sixes",
-        "Event Name": "Hong Kong Super Sixes",
-        "Match Time": "30-10-202600:30",
-        "Link": "https://crichd.mobile/hong-kong-super-sixes",
-        "Team Logo": "http://logocdn.wapsite.me/images/SUPER.png"
-    },
-    {
         "Team Name": "T20 League",
         "Event Name": "NPL T20",
         "Match Time": "31-10-202606:45",
         "Link": "https://crichd.mobile/npl-t20",
         "Team Logo": "http://logocdn.wapsite.me/images/DEFAULT.png"
-    },
-    {
-        "Team Name": "IND vs NZ",
-        "Event Name": "5th T20 India vs New Zealand",
-        "Match Time": "Today07:00",
-        "Link": "https://crichd.mobile/5th-t20-india-vs-new-zealand",
-        "Team Logo": "https://flagcdn.com/w80/in.png"
     },
     {
         "Team Name": "Afg vs Zim",
