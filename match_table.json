@@ -1,12 +1,5 @@
 [
     {
-        "Team Name": "Ban vs WI",
-        "Event Name": "Bangladesh vs West Indies",
-        "Match Time": "Today03:30",
-        "Link": "https://crichd.mobile/bangladesh-vs-west-indies",
-        "Team Logo": "https://flagcdn.com/w80/bd.png"
-    },
-    {
         "Team Name": "Pak vs SL",
         "Event Name": "1st Test Pakistan vs Sri Lanka",
         "Match Time": "Today04:30",
@@ -19,13 +12,6 @@
         "Match Time": "Today05:00",
         "Link": "https://crichd.mobile/u-19-asia-cup",
         "Team Logo": "http://logocdn.wapsite.me/images/ASIA.png"
-    },
-    {
-        "Team Name": "Afg vs Zim",
-        "Event Name": "Afghanistan vs Zimbabwe",
-        "Match Time": "Today06:00",
-        "Link": "https://crichd.mobile/afghanistan-vs-zimbabwe",
-        "Team Logo": "https://flagcdn.com/w80/af.png"
     },
     {
         "Team Name": "T20 League",
