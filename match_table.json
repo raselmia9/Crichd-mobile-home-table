@@ -7,13 +7,6 @@
         "Team Logo": "http://logocdn.wapsite.me/images/T10.png"
     },
     {
-        "Team Name": "T20 League",
-        "Event Name": "NPL T20",
-        "Match Time": "Today11:15",
-        "Link": "https://crichd.mobile/npl-t20",
-        "Team Logo": "http://logocdn.wapsite.me/images/DEFAULT.png"
-    },
-    {
         "Team Name": "IND vs NZ",
         "Event Name": "5th ODI India vs New Zealand",
         "Match Time": "Tomorrow02:00",
@@ -26,6 +19,13 @@
         "Match Time": "Tomorrow03:30",
         "Link": "https://crichd.mobile/2nd-odi-england-vs-australia-live-streaming",
         "Team Logo": "https://flagcdn.com/w80/gb-eng.png"
+    },
+    {
+        "Team Name": "T20 League",
+        "Event Name": "NPL T20",
+        "Match Time": "Tomorrow06:45",
+        "Link": "https://crichd.mobile/npl-t20",
+        "Team Logo": "http://logocdn.wapsite.me/images/DEFAULT.png"
     },
     {
         "Team Name": "BAN vs SA",
