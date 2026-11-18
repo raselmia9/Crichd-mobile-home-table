@@ -28,17 +28,17 @@
         "Team Logo": "http://logocdn.wapsite.me/images/DEFAULT.png"
     },
     {
-        "Team Name": "AUS vs ENG",
-        "Event Name": "3rd ODI England vs Australia",
-        "Match Time": "Today03:30",
-        "Link": "https://crichd.mobile/3rd-odi-england-vs-australia",
-        "Team Logo": "https://flagcdn.com/w80/gb-eng.png"
-    },
-    {
         "Team Name": "IND vs NZ",
         "Event Name": "1st Test India vs New Zealand",
         "Match Time": "Today22:00",
         "Link": "https://crichd.mobile/1st-test-india-vs-new-zealand",
         "Team Logo": "https://flagcdn.com/w80/in.png"
+    },
+    {
+        "Team Name": "Asia Cup",
+        "Event Name": "Asia Cup Rising Stars",
+        "Match Time": "Tomorrow06:00",
+        "Link": "https://crichd.mobile/asia-cup-rising-stars",
+        "Team Logo": "http://logocdn.wapsite.me/images/ASIA.png"
     }
 ]
